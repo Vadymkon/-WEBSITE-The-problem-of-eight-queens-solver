@@ -8,7 +8,7 @@ if (dil == 1) document.getElementById("opa").style.width = "1120px";
 document.getElementById("size1").onclick = function () { dil = 2; document.getElementById("opa").style.width = "560px"; deletetabl() }
 document.getElementById("size2").onclick = function () { dil = 1; document.getElementById("opa").style.width = "1120px"; deletetabl() }
 document.getElementById("btn").onclick = function () { start() };
-document.getElementById("Dora").onclick = function () { alert("123"); alert(cunter < 1 ? "Dont Touch Dora, pervert." : "Stop it!"); cunter++; if (cunter > 2) somniteln0();};
+document.getElementById("Dora").onclick = function () { alert(cunter < 1 ? "Dont Touch Dora, pervert." : "Stop it!"); cunter++; if (cunter > 2) somniteln0();};
 var changer = 0;
 var coloristik = {"Place":"color"};
 
