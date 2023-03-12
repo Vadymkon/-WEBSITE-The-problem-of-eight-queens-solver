@@ -8,6 +8,7 @@ var board = []; var boardstan = [];
 var cunter = 0;
 var dil = 2;
 //if (dil == 1) document.getElementById("opa").style.width = "704px";
+if (localStorage.getItem("isUserPervert") == "yes") somniteln0();
 
 document.getElementById("size1").onclick = function () {
     dil = 2; document.getElementById("opa").style.width = "352px";
@@ -22,7 +23,7 @@ document.getElementById("size2").onclick = function () {
 document.getElementById("opa").onclick = function () { start(); };
 document.getElementById("Dora").onclick = function () {
     alert(cunter < 1 ? "Dont Touch Dora, pervert." : "Stop it!");
-    cunter++; if (cunter > 2) { somniteln0(); }
+    cunter++; if (cunter > 2) { somniteln0(); localStorage.setItem("isUserPervert", "yes"); }
 };
 document.getElementById("opa").onmouseout = function () {
     if (getRandomInt(15) == 14) {
