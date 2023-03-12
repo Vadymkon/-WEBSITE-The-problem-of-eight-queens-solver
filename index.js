@@ -8,8 +8,23 @@ var board = []; var boardstan = [];
 var cunter = 0;
 var dil = 2;
 //if (dil == 1) document.getElementById("opa").style.width = "704px";
-if (localStorage.getItem("isUserPervert") == "yes") somniteln0();
-
+if (localStorage.getItem("isUserPervert") == "yes") {
+    somniteln0();
+    if (localStorage.getItem("try3") == "yes") {
+        document.getElementById("sometext").innerHTML = "звоню в СБУ";
+        document.body.style.background = "url('materials/monkey.gif') no-repeat";
+        document.body.style.backgroundSize = "54%";
+        document.body.style.backgroundColor = "dimgrey";
+        document.getElementById("size1").style.visibility = "hidden";
+        document.getElementById("size2").style.visibility = "hidden";
+    }
+    else if (localStorage.getItem("try2") == "yes") {
+        localStorage.setItem("try3", "yes");
+        document.getElementById("sometext").innerHTML = "шо ти сторінку оновлюєш, не виходить?)";
+    }
+    else if (localStorage.getItem("try1") == "yes") localStorage.setItem("try2", "yes");
+    else localStorage.setItem("try1", "yes");
+}
 document.getElementById("size1").onclick = function () {
     dil = 2; document.getElementById("opa").style.width = "352px";
     deletetabl(); settable();
