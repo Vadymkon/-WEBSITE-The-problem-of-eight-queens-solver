@@ -1,19 +1,16 @@
 var letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "AA", "BB", "CC", "DD", "EE", "FF"];
 var numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32"];
 var board = []; var boardstan = [];
-
-
+var cunter = 0;
 var dil =2;
 if (dil == 1) document.getElementById("opa").style.width = "1120px";
 
 document.getElementById("size1").onclick = function () { dil = 2; document.getElementById("opa").style.width = "560px"; deletetabl() }
 document.getElementById("size2").onclick = function () { dil = 1; document.getElementById("opa").style.width = "1120px"; deletetabl() }
 document.getElementById("btn").onclick = function () { start() };
-
+document.getElementById("Dora").onclick = function () { alert(cunter < 1 ? "Dont Touch Dora, pervert." : "Stop it!"); cunter++; if (cunter > 2) somniteln0();};
 var changer = 0;
 var coloristik = {"Place":"color"};
-
-
 
 //set table
 for (let i = 0; i < letters.length / dil; i++) {
@@ -158,6 +155,13 @@ function unsetColumn(str, mode = 0) {
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
+}
+
+function somniteln0() {
+document.body.style.background = "url('materials//frede.jpg') no-repeat";
+document.body.style.backgroundSize = "100% 100%";
+document.getElementById("Dora").style.visibility = "hidden";
+document.getElementById("btn").style.visibility = "hidden";
 }
 
 //создать поле
