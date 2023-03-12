@@ -1,16 +1,43 @@
-var letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "AA", "BB", "CC", "DD", "EE", "FF"];
-var numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32"];
+var letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L",
+    "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
+    "AA", "BB", "CC", "DD", "EE", "FF"];
+var numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+    "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
+    "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32"];
 var board = []; var boardstan = [];
 var cunter = 0;
 var dil = 2;
-if (dil == 1) document.getElementById("opa").style.width = "704px";
+//if (dil == 1) document.getElementById("opa").style.width = "704px";
 
-document.getElementById("size1").onclick = function () { dil = 2; document.getElementById("opa").style.width = "352px"; deletetabl(); settable();}
-document.getElementById("size2").onclick = function () { dil = 1; document.getElementById("opa").style.width = "704px"; deletetabl(); settable(); }
-document.getElementById("opa").onclick = function () { start() };
-document.getElementById("Dora").onclick = function () { alert(cunter < 1 ? "Dont Touch Dora, pervert." : "Stop it!"); cunter++; if (cunter > 2) somniteln0(); };
-document.getElementById("opa").onmouseout = function () { if (getRandomInt(15)==14) for (let i = 0; i < board.length; i++) document.getElementById(board[i]).style.boxShadow = "inset 0.05em 0.05em 15px rgba(72, 60, 50,.25)"; };
-document.getElementById("Dora").onmouseover = function () {for (let i = 0; i < board.length; i++) document.getElementById(board[i]).style.boxShadow = "inset 0.05em 0.05em 15px rgba(72, 60, 50,.25)"; };
+document.getElementById("size1").onclick = function () {
+    dil = 2; document.getElementById("opa").style.width = "352px";
+    deletetabl(); settable();
+};
+
+document.getElementById("size2").onclick = function () {
+    dil = 1; document.getElementById("opa").style.width = "704px";
+    deletetabl(); settable();
+};
+
+document.getElementById("opa").onclick = function () { start(); };
+document.getElementById("Dora").onclick = function () {
+    alert(cunter < 1 ? "Dont Touch Dora, pervert." : "Stop it!");
+    cunter++; if (cunter > 2) { somniteln0(); }
+};
+document.getElementById("opa").onmouseout = function () {
+    if (getRandomInt(15) == 14) {
+        for (let i = 0; i < board.length; i++) {
+            document.getElementById(board[i]).style.boxShadow =
+                "inset 0.05em 0.05em 15px rgba(72, 60, 50,.25)";
+        }
+    }
+};
+document.getElementById("Dora").onmouseover = function ()
+{
+    for (let i = 0; i < board.length; i++)
+        document.getElementById(board[i]).style.boxShadow =
+            "inset 0.05em 0.05em 15px rgba(72, 60, 50,.25)";
+};
 var changer = 0;
 var coloristik = {"Place":"color"};
 
@@ -27,22 +54,18 @@ for (let i = 0; i < letters.length / dil; i++) {
     changer = changer == 0 ? changer = 1 : 0;
 }
 
-/*
- по горизонтали: совпадает буква
- по вертикали: совпадает цифра
- по диагонали: в масивах находится буква и цифра что в оригинале, а дальше попарно увеличиваются на 1 и уменьшаются (индекс) 
-                                                                                                    пока не доберётся до конца массива
- */
-
 function regenerate_board() {
     board = [];
-    for (let i = 0; i < letters.length / dil; i++) 
-        for (let j = 0; j < numbers.length / dil; j++) 
+    for (let i = 0; i < letters.length / dil; i++)
+        for (let j = 0; j < numbers.length / dil; j++)
             board.push(letters[i] + numbers[j]);
 }
 
 function deletetabl() {
-    try { for (let i = 0; i < board.length; i++) document.getElementById(board[i]).remove(); }
+    try {
+        for (let i = 0; i < board.length; i++)
+            document.getElementById(board[i]).remove();
+    }
     catch { }
 }
 
@@ -66,7 +89,8 @@ function start() {
 
     //розкидка ферзiв
     for (let i = getRandomInt(180 / dil); i < board.length; i++)
-        setInterval(() => { if (boardstan[i] == true) { ferz(board[i]); } }, 200)
+        setInterval(() =>
+        { if (boardstan[i] == true) { ferz(board[i]); } }, 200)
 }
 
 function ferz(str, mode = 0) {
@@ -75,7 +99,8 @@ function ferz(str, mode = 0) {
     unsetRow(letter, mode);
     unsetColumn(str, mode)
     if (mode == 0) {
-        document.getElementById(str).style.background = "green"; coloristik[str] = "green";
+        document.getElementById(str).style.background = "green";
+        coloristik[str] = "green";
     }
 }
 
@@ -88,57 +113,70 @@ function unset(str, mode = 0) {
         }
         else if (mode == 1) {
             document.getElementById(str).style.background = "darkgrey";
-            document.getElementById(str).style.boxShadow = "10px 10px 75px rgba(72, 60, 50,.35)";
-            if (document.getElementById(str).style.boxShadow == "0px 0px 0px 0px") document.getElementById(str).style.boxShadow = "inset 0.05em 0.05em 15px rgba(72, 60, 50,.25)";
+            document.getElementById(str).style.boxShadow =
+                "10px 10px 75px rgba(72, 60, 50,.35)";
+            if (document.getElementById(str).style.boxShadow ==
+                "0px 0px 0px 0px")
+                document.getElementById(str).style.boxShadow =
+                    "inset 0.05em 0.05em 15px rgba(72, 60, 50,.25)";
         }
         else
         {
             document.getElementById(str).style.background = coloristik[str];
             document.getElementById(str).style.boxShadow = "0 0 0 0";
-            
         }
     }
 }
 
-//по диагонали
+/*
+ по диагонали: в масивах находится буква и цифра
+ что в оригинале, а дальше попарно увеличиваются на 1
+ и уменьшаются (индекс) пока не доберётся до конца массива
+*/
 function unsetDiagonal(str, mode = 0)
 {
     let letter = str[0];
-    if (letters.indexOf(str[1]) != -1) letter += str[1]; //двойная буква
-
+    if (letters.indexOf(str[1]) != -1) letter += str[1];
+    //двойная буква
     let number = str.slice(1);
     if (letters.indexOf(number[0]) != -1) number = str.slice(2);
 
     //console.log(letter + " " + number);
 
-    for (let i = letters.indexOf(letter), j = numbers.indexOf(number); i < letters.length && j < numbers.length; i++, j++) 
+    for (let i = letters.indexOf(letter), j = numbers.indexOf(number);
+        i < letters.length && j < numbers.length; i++, j++)
         unset(letters[i] + numbers[j], mode);
 
-    for (let i = letters.indexOf(letter), j = numbers.indexOf(number); i >= 0 && j >= 0; i--, j--) 
+    for (let i = letters.indexOf(letter), j = numbers.indexOf(number);
+        i >= 0 && j >= 0; i--, j--)
         unset(letters[i] + numbers[j], mode);
 
-    for (let i = letters.indexOf(letter), j = numbers.indexOf(number); i < letters.length && j >= 0; i++, j--)
+    for (let i = letters.indexOf(letter), j = numbers.indexOf(number);
+        i < letters.length && j >= 0; i++, j--)
         unset(letters[i] + numbers[j], mode);
 
-    for (let i = letters.indexOf(letter), j = numbers.indexOf(number); i >= 0 && j < numbers.length; i--, j++)
+    for (let i = letters.indexOf(letter), j = numbers.indexOf(number);
+        i >= 0 && j < numbers.length; i--, j++)
         unset(letters[i] + numbers[j], mode);
 }
 
 function howmanyletters(str) {
 
     let letter = str[0];
-    if (letters.indexOf(str[1]) != -1) letter += str[1]; //двойная буква
+    if (letters.indexOf(str[1]) != -1) letter += str[1];
+    //двойная буква
     return letter.length;
 }
 
-//по горизонтали
+//по горизонтали - совпадает буква
 function unsetRow(str, mode = 0)
 {
     let letter = str[0];
     if (letters.indexOf(str[1]) != -1) letter += str[1]; //двойная буква
 
     for (let i = 0; i < board.length; i++) {
-        if (board[i].includes(letter) && howmanyletters(board[i]) == letter.length)
+        if (board[i].includes(letter) &&
+            howmanyletters(board[i]) == letter.length)
         {
             unset(board[i], mode);
         }
@@ -148,17 +186,18 @@ function unsetRow(str, mode = 0)
 function howmanynumbers(str) {
 
     let letter = str.slice(1);
-    if (letters.indexOf(letter[0]) != -1) letter = letter.slice(1); //двойная буква
-
+    if (letters.indexOf(letter[0]) != -1) letter = letter.slice(1);
+    //двойная буква
     return letter.length;
 }
-//по вертикали
+//по вертикали - совпадает цифра
 function unsetColumn(str, mode = 0) {
     let letter = str.slice(1);
-    if (letters.indexOf(letter[0]) != -1) letter = letter.slice(1); //двойная буква
-
+    if (letters.indexOf(letter[0]) != -1) letter = letter.slice(1);
+    //двойная буква
     for (let i = 0; i < board.length; i++) {
-        if (board[i].includes(letter) && howmanynumbers(board[i]) == letter.length) {
+        if (board[i].includes(letter) &&
+            howmanynumbers(board[i]) == letter.length) {
             unset(board[i], mode);
         }
     }
@@ -187,5 +226,4 @@ function makediv(str,mode=0) {
     div.onmouseover = function () { ferz(str, 1) };
     div.onmouseout = function () { ferz(str, 2) };
     document.getElementById("opa").appendChild(div);
-    
 }
