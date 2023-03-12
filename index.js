@@ -8,7 +8,7 @@ if (dil == 1) document.getElementById("opa").style.width = "1120px";
 document.getElementById("size1").onclick = function () { dil = 2; document.getElementById("opa").style.width = "560px"; deletetabl() }
 document.getElementById("size2").onclick = function () { dil = 1; document.getElementById("opa").style.width = "1120px"; deletetabl() }
 document.getElementById("btn").onclick = function () { start() };
-document.getElementById("Dora").onclick = function () { alert(cunter < 1 ? "Dont Touch Dora, pervert." : "Stop it!"); cunter++; if (cunter > 2) somniteln0();};
+document.getElementById("Dora").onclick = function () { alert("123"); alert(cunter < 1 ? "Dont Touch Dora, pervert." : "Stop it!"); cunter++; if (cunter > 2) somniteln0();};
 var changer = 0;
 var coloristik = {"Place":"color"};
 
@@ -24,10 +24,10 @@ for (let i = 0; i < letters.length / dil; i++) {
 }
 
 /*
- по горизонтали: совпадает буква
- по вертикали: совпадает цифра
- по диагонали: в масивах находится буква и цифра что в оригинале, а дальше попарно увеличиваются на 1 и уменьшаются (индекс) 
-                                                                                                    пока не доберётся до конца массива
+ ГЇГ® ГЈГ®Г°ГЁГ§Г®Г­ГІГ Г«ГЁ: Г±Г®ГўГЇГ Г¤Г ГҐГІ ГЎГіГЄГўГ 
+ ГЇГ® ГўГҐГ°ГІГЁГЄГ Г«ГЁ: Г±Г®ГўГЇГ Г¤Г ГҐГІ Г¶ГЁГґГ°Г 
+ ГЇГ® Г¤ГЁГ ГЈГ®Г­Г Г«ГЁ: Гў Г¬Г Г±ГЁГўГ Гµ Г­Г ГµГ®Г¤ГЁГІГ±Гї ГЎГіГЄГўГ  ГЁ Г¶ГЁГґГ°Г  Г·ГІГ® Гў Г®Г°ГЁГЈГЁГ­Г Г«ГҐ, Г  Г¤Г Г«ГјГёГҐ ГЇГ®ГЇГ Г°Г­Г® ГіГўГҐГ«ГЁГ·ГЁГўГ ГѕГІГ±Гї Г­Г  1 ГЁ ГіГ¬ГҐГ­ГјГёГ ГѕГІГ±Гї (ГЁГ­Г¤ГҐГЄГ±) 
+                                                                                                    ГЇГ®ГЄГ  Г­ГҐ Г¤Г®ГЎГҐГ°ВёГІГ±Гї Г¤Г® ГЄГ®Г­Г¶Г  Г¬Г Г±Г±ГЁГўГ 
  */
 
 function regenerate_board() {
@@ -57,7 +57,7 @@ function start() {
         changer = changer == 0 ? changer = 1 : 0;
     }
 
-    //розкидка ферзiв
+    //Г°Г®Г§ГЄГЁГ¤ГЄГ  ГґГҐГ°Г§iГў
     for (let i = getRandomInt(180 / dil); i < board.length; i++)
         setInterval(() => { if (boardstan[i] == true) { ferz(board[i]); } }, 200)
 }
@@ -89,11 +89,11 @@ function unset(str, mode = 0) {
     }
 }
 
-//по диагонали
+//ГЇГ® Г¤ГЁГ ГЈГ®Г­Г Г«ГЁ
 function unsetDiagonal(str, mode = 0)
 {
     let letter = str[0];
-    if (letters.indexOf(str[1]) != -1) letter += str[1]; //двойная буква
+    if (letters.indexOf(str[1]) != -1) letter += str[1]; //Г¤ГўГ®Г©Г­Г Гї ГЎГіГЄГўГ 
 
     let number = str.slice(1);
     if (letters.indexOf(number[0]) != -1) number = str.slice(2);
@@ -116,15 +116,15 @@ function unsetDiagonal(str, mode = 0)
 function howmanyletters(str) {
 
     let letter = str[0];
-    if (letters.indexOf(str[1]) != -1) letter += str[1]; //двойная буква
+    if (letters.indexOf(str[1]) != -1) letter += str[1]; //Г¤ГўГ®Г©Г­Г Гї ГЎГіГЄГўГ 
     return letter.length;
 }
 
-//по горизонтали
+//ГЇГ® ГЈГ®Г°ГЁГ§Г®Г­ГІГ Г«ГЁ
 function unsetRow(str, mode = 0)
 {
     let letter = str[0];
-    if (letters.indexOf(str[1]) != -1) letter += str[1]; //двойная буква
+    if (letters.indexOf(str[1]) != -1) letter += str[1]; //Г¤ГўГ®Г©Г­Г Гї ГЎГіГЄГўГ 
 
     for (let i = 0; i < board.length; i++) {
         if (board[i].includes(letter) && howmanyletters(board[i]) == letter.length)
@@ -137,14 +137,14 @@ function unsetRow(str, mode = 0)
 function howmanynumbers(str) {
 
     let letter = str.slice(1);
-    if (letters.indexOf(letter[0]) != -1) letter = letter.slice(1); //двойная буква
+    if (letters.indexOf(letter[0]) != -1) letter = letter.slice(1); //Г¤ГўГ®Г©Г­Г Гї ГЎГіГЄГўГ 
 
     return letter.length;
 }
-//по вертикали
+//ГЇГ® ГўГҐГ°ГІГЁГЄГ Г«ГЁ
 function unsetColumn(str, mode = 0) {
     let letter = str.slice(1);
-    if (letters.indexOf(letter[0]) != -1) letter = letter.slice(1); //двойная буква
+    if (letters.indexOf(letter[0]) != -1) letter = letter.slice(1); //Г¤ГўГ®Г©Г­Г Гї ГЎГіГЄГўГ 
 
     for (let i = 0; i < board.length; i++) {
         if (board[i].includes(letter) && howmanynumbers(board[i]) == letter.length) {
@@ -164,7 +164,7 @@ document.getElementById("Dora").style.visibility = "hidden";
 document.getElementById("btn").style.visibility = "hidden";
 }
 
-//создать поле
+//Г±Г®Г§Г¤Г ГІГј ГЇГ®Г«ГҐ
 function makediv(str,mode=0) {
     let div = document.createElement("div");
     div.className = "box1";
