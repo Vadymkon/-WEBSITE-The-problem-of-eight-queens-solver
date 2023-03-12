@@ -2,15 +2,19 @@ var letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", 
 var numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32"];
 var board = []; var boardstan = [];
 var cunter = 0;
-var dil =2;
-if (dil == 1) document.getElementById("opa").style.width = "1120px";
+var dil = 2;
+if (dil == 1) document.getElementById("opa").style.width = "704px";
 
-document.getElementById("size1").onclick = function () { dil = 2; document.getElementById("opa").style.width = "560px"; deletetabl() }
-document.getElementById("size2").onclick = function () { dil = 1; document.getElementById("opa").style.width = "1120px"; deletetabl() }
-document.getElementById("btn").onclick = function () { start() };
-document.getElementById("Dora").onclick = function () { alert(cunter < 1 ? "Dont Touch Dora, pervert." : "Stop it!"); cunter++; if (cunter > 2) somniteln0();};
+document.getElementById("size1").onclick = function () { dil = 2; document.getElementById("opa").style.width = "352px"; deletetabl(); settable();}
+document.getElementById("size2").onclick = function () { dil = 1; document.getElementById("opa").style.width = "704px"; deletetabl(); settable(); }
+document.getElementById("opa").onclick = function () { start() };
+document.getElementById("Dora").onclick = function () { alert(cunter < 1 ? "Dont Touch Dora, pervert." : "Stop it!"); cunter++; if (cunter > 2) somniteln0(); };
+document.getElementById("opa").onmouseout = function () { if (getRandomInt(15)==14) for (let i = 0; i < board.length; i++) document.getElementById(board[i]).style.boxShadow = "inset 0.05em 0.05em 15px rgba(72, 60, 50,.25)"; };
+document.getElementById("Dora").onmouseover = function () {for (let i = 0; i < board.length; i++) document.getElementById(board[i]).style.boxShadow = "inset 0.05em 0.05em 15px rgba(72, 60, 50,.25)"; };
 var changer = 0;
 var coloristik = {"Place":"color"};
+
+
 
 //set table
 for (let i = 0; i < letters.length / dil; i++) {
@@ -24,10 +28,10 @@ for (let i = 0; i < letters.length / dil; i++) {
 }
 
 /*
- ГЇГ® ГЈГ®Г°ГЁГ§Г®Г­ГІГ Г«ГЁ: Г±Г®ГўГЇГ Г¤Г ГҐГІ ГЎГіГЄГўГ 
- ГЇГ® ГўГҐГ°ГІГЁГЄГ Г«ГЁ: Г±Г®ГўГЇГ Г¤Г ГҐГІ Г¶ГЁГґГ°Г 
- ГЇГ® Г¤ГЁГ ГЈГ®Г­Г Г«ГЁ: Гў Г¬Г Г±ГЁГўГ Гµ Г­Г ГµГ®Г¤ГЁГІГ±Гї ГЎГіГЄГўГ  ГЁ Г¶ГЁГґГ°Г  Г·ГІГ® Гў Г®Г°ГЁГЈГЁГ­Г Г«ГҐ, Г  Г¤Г Г«ГјГёГҐ ГЇГ®ГЇГ Г°Г­Г® ГіГўГҐГ«ГЁГ·ГЁГўГ ГѕГІГ±Гї Г­Г  1 ГЁ ГіГ¬ГҐГ­ГјГёГ ГѕГІГ±Гї (ГЁГ­Г¤ГҐГЄГ±) 
-                                                                                                    ГЇГ®ГЄГ  Г­ГҐ Г¤Г®ГЎГҐГ°ВёГІГ±Гї Г¤Г® ГЄГ®Г­Г¶Г  Г¬Г Г±Г±ГЁГўГ 
+ по горизонтали: совпадает буква
+ по вертикали: совпадает цифра
+ по диагонали: в масивах находится буква и цифра что в оригинале, а дальше попарно увеличиваются на 1 и уменьшаются (индекс) 
+                                                                                                    пока не доберётся до конца массива
  */
 
 function regenerate_board() {
@@ -42,11 +46,7 @@ function deletetabl() {
     catch { }
 }
 
-function start() {
-    boardstan = [];
-    regenerate_board();
-    deletetabl();
-    //set table
+function settable() {
     for (let i = 0; i < letters.length / dil; i++) {
 
         for (let j = 0; j < numbers.length / dil; j++) {
@@ -56,8 +56,15 @@ function start() {
         }
         changer = changer == 0 ? changer = 1 : 0;
     }
+}
 
-    //Г°Г®Г§ГЄГЁГ¤ГЄГ  ГґГҐГ°Г§iГў
+function start() {
+    boardstan = [];
+    regenerate_board();
+    deletetabl();
+    settable();
+
+    //розкидка ферзiв
     for (let i = getRandomInt(180 / dil); i < board.length; i++)
         setInterval(() => { if (boardstan[i] == true) { ferz(board[i]); } }, 200)
 }
@@ -81,19 +88,23 @@ function unset(str, mode = 0) {
         }
         else if (mode == 1) {
             document.getElementById(str).style.background = "darkgrey";
+            document.getElementById(str).style.boxShadow = "10px 10px 75px rgba(72, 60, 50,.35)";
+            if (document.getElementById(str).style.boxShadow == "0px 0px 0px 0px") document.getElementById(str).style.boxShadow = "inset 0.05em 0.05em 15px rgba(72, 60, 50,.25)";
         }
         else
         {
             document.getElementById(str).style.background = coloristik[str];
+            document.getElementById(str).style.boxShadow = "0 0 0 0";
+            
         }
     }
 }
 
-//ГЇГ® Г¤ГЁГ ГЈГ®Г­Г Г«ГЁ
+//по диагонали
 function unsetDiagonal(str, mode = 0)
 {
     let letter = str[0];
-    if (letters.indexOf(str[1]) != -1) letter += str[1]; //Г¤ГўГ®Г©Г­Г Гї ГЎГіГЄГўГ 
+    if (letters.indexOf(str[1]) != -1) letter += str[1]; //двойная буква
 
     let number = str.slice(1);
     if (letters.indexOf(number[0]) != -1) number = str.slice(2);
@@ -116,15 +127,15 @@ function unsetDiagonal(str, mode = 0)
 function howmanyletters(str) {
 
     let letter = str[0];
-    if (letters.indexOf(str[1]) != -1) letter += str[1]; //Г¤ГўГ®Г©Г­Г Гї ГЎГіГЄГўГ 
+    if (letters.indexOf(str[1]) != -1) letter += str[1]; //двойная буква
     return letter.length;
 }
 
-//ГЇГ® ГЈГ®Г°ГЁГ§Г®Г­ГІГ Г«ГЁ
+//по горизонтали
 function unsetRow(str, mode = 0)
 {
     let letter = str[0];
-    if (letters.indexOf(str[1]) != -1) letter += str[1]; //Г¤ГўГ®Г©Г­Г Гї ГЎГіГЄГўГ 
+    if (letters.indexOf(str[1]) != -1) letter += str[1]; //двойная буква
 
     for (let i = 0; i < board.length; i++) {
         if (board[i].includes(letter) && howmanyletters(board[i]) == letter.length)
@@ -137,14 +148,14 @@ function unsetRow(str, mode = 0)
 function howmanynumbers(str) {
 
     let letter = str.slice(1);
-    if (letters.indexOf(letter[0]) != -1) letter = letter.slice(1); //Г¤ГўГ®Г©Г­Г Гї ГЎГіГЄГўГ 
+    if (letters.indexOf(letter[0]) != -1) letter = letter.slice(1); //двойная буква
 
     return letter.length;
 }
-//ГЇГ® ГўГҐГ°ГІГЁГЄГ Г«ГЁ
+//по вертикали
 function unsetColumn(str, mode = 0) {
     let letter = str.slice(1);
-    if (letters.indexOf(letter[0]) != -1) letter = letter.slice(1); //Г¤ГўГ®Г©Г­Г Гї ГЎГіГЄГўГ 
+    if (letters.indexOf(letter[0]) != -1) letter = letter.slice(1); //двойная буква
 
     for (let i = 0; i < board.length; i++) {
         if (board[i].includes(letter) && howmanynumbers(board[i]) == letter.length) {
@@ -158,13 +169,13 @@ function getRandomInt(max) {
 }
 
 function somniteln0() {
-document.body.style.background = "url('materials//frede.jpg') no-repeat";
-document.body.style.backgroundSize = "100% 100%";
-document.getElementById("Dora").style.visibility = "hidden";
-document.getElementById("btn").style.visibility = "hidden";
+    document.body.style.background = "url('materials//frede.jpg') no-repeat";
+    document.body.style.backgroundSize = "100% 100%";
+    document.getElementById("Dora").style.visibility = "hidden";
+    document.getElementById("opa").style.visibility = "hidden";
 }
 
-//Г±Г®Г§Г¤Г ГІГј ГЇГ®Г«ГҐ
+//создать поле
 function makediv(str,mode=0) {
     let div = document.createElement("div");
     div.className = "box1";
