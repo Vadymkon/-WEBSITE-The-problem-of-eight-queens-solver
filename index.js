@@ -11,7 +11,7 @@ var dil = 2;
 if (localStorage.getItem("isUserPervert") == "yes") {
     somniteln0();
     if (localStorage.getItem("try3") == "yes") {
-        document.getElementById("sometext").innerHTML = "zvonyu v SBU";
+        document.getElementById("sometext").innerHTML = "звоню в СБУ";
         document.body.style.background = "url('materials/monkey.gif') no-repeat";
         document.body.style.backgroundSize = "54%";
         document.body.style.backgroundColor = "dimgrey";
@@ -20,19 +20,19 @@ if (localStorage.getItem("isUserPervert") == "yes") {
     }
     else if (localStorage.getItem("try2") == "yes") {
         localStorage.setItem("try3", "yes");
-        document.getElementById("sometext").innerHTML = "sho take? ne onovluetsa storinka?)";
+        document.getElementById("sometext").innerHTML = "шо ти сторінку оновлюєш, не виходить?)";
     }
     else if (localStorage.getItem("try1") == "yes") localStorage.setItem("try2", "yes");
     else localStorage.setItem("try1", "yes");
 }
 document.getElementById("size1").onclick = function () {
     dil = 2; document.getElementById("opa").style.width = "352px";
-    deletetabl(); settable();
+    deletetabl(); settable(); regenerate_board();
 };
 
 document.getElementById("size2").onclick = function () {
     dil = 1; document.getElementById("opa").style.width = "704px";
-    deletetabl(); settable();
+    deletetabl(); settable(); regenerate_board();
 };
 
 document.getElementById("opa").onclick = function () { start(); };
@@ -99,11 +99,10 @@ function settable() {
 
 function start() {
     boardstan = [];
-    regenerate_board();
     deletetabl();
     settable();
 
-    //Г°Г®Г§ГЄГЁГ¤ГЄГ  ГґГҐГ°Г§iГў
+    //розкидка ферзiв
     for (let i = getRandomInt(180 / dil); i < board.length; i++)
         setInterval(() =>
         { if (boardstan[i] == true) { ferz(board[i]); } }, 200)
@@ -145,15 +144,15 @@ function unset(str, mode = 0) {
 }
 
 /*
- ГЇГ® Г¤ГЁГ ГЈГ®Г­Г Г«ГЁ: Гў Г¬Г Г±ГЁГўГ Гµ Г­Г ГµГ®Г¤ГЁГІГ±Гї ГЎГіГЄГўГ  ГЁ Г¶ГЁГґГ°Г 
- Г·ГІГ® Гў Г®Г°ГЁГЈГЁГ­Г Г«ГҐ, Г  Г¤Г Г«ГјГёГҐ ГЇГ®ГЇГ Г°Г­Г® ГіГўГҐГ«ГЁГ·ГЁГўГ ГѕГІГ±Гї Г­Г  1
- ГЁ ГіГ¬ГҐГ­ГјГёГ ГѕГІГ±Гї (ГЁГ­Г¤ГҐГЄГ±) ГЇГ®ГЄГ  Г­ГҐ Г¤Г®ГЎГҐГ°ВёГІГ±Гї Г¤Г® ГЄГ®Г­Г¶Г  Г¬Г Г±Г±ГЁГўГ 
+ по диагонали: в масивах находится буква и цифра
+ что в оригинале, а дальше попарно увеличиваются на 1
+ и уменьшаются (индекс) пока не доберётся до конца массива
 */
 function unsetDiagonal(str, mode = 0)
 {
     let letter = str[0];
     if (letters.indexOf(str[1]) != -1) letter += str[1];
-    //Г¤ГўГ®Г©Г­Г Гї ГЎГіГЄГўГ 
+    //двойная буква
     let number = str.slice(1);
     if (letters.indexOf(number[0]) != -1) number = str.slice(2);
 
@@ -180,15 +179,15 @@ function howmanyletters(str) {
 
     let letter = str[0];
     if (letters.indexOf(str[1]) != -1) letter += str[1];
-    //Г¤ГўГ®Г©Г­Г Гї ГЎГіГЄГўГ 
+    //двойная буква
     return letter.length;
 }
 
-//ГЇГ® ГЈГ®Г°ГЁГ§Г®Г­ГІГ Г«ГЁ - Г±Г®ГўГЇГ Г¤Г ГҐГІ ГЎГіГЄГўГ 
+//по горизонтали - совпадает буква
 function unsetRow(str, mode = 0)
 {
     let letter = str[0];
-    if (letters.indexOf(str[1]) != -1) letter += str[1]; //Г¤ГўГ®Г©Г­Г Гї ГЎГіГЄГўГ 
+    if (letters.indexOf(str[1]) != -1) letter += str[1]; //двойная буква
 
     for (let i = 0; i < board.length; i++) {
         if (board[i].includes(letter) &&
@@ -203,14 +202,14 @@ function howmanynumbers(str) {
 
     let letter = str.slice(1);
     if (letters.indexOf(letter[0]) != -1) letter = letter.slice(1);
-    //Г¤ГўГ®Г©Г­Г Гї ГЎГіГЄГўГ 
+    //двойная буква
     return letter.length;
 }
-//ГЇГ® ГўГҐГ°ГІГЁГЄГ Г«ГЁ - Г±Г®ГўГЇГ Г¤Г ГҐГІ Г¶ГЁГґГ°Г 
+//по вертикали - совпадает цифра
 function unsetColumn(str, mode = 0) {
     let letter = str.slice(1);
     if (letters.indexOf(letter[0]) != -1) letter = letter.slice(1);
-    //Г¤ГўГ®Г©Г­Г Гї ГЎГіГЄГўГ 
+    //двойная буква
     for (let i = 0; i < board.length; i++) {
         if (board[i].includes(letter) &&
             howmanynumbers(board[i]) == letter.length) {
@@ -230,7 +229,7 @@ function somniteln0() {
     document.getElementById("opa").style.visibility = "hidden";
 }
 
-//Г±Г®Г§Г¤Г ГІГј ГЇГ®Г«ГҐ
+//создать поле
 function makediv(str,mode=0) {
     let div = document.createElement("div");
     div.className = "box1";
